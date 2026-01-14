@@ -25,25 +25,19 @@ jobs:
           node-version: 20
 
       - name: Install
-        working-directory: client
         run: npm ci
 
       - name: Build
-        working-directory: client
         run: npm run build
-        
-      - name: Debug output
-        run: |
-          ls -la
-          ls -la client
-          ls -la client/dist || true
-          ls -la client/build || true
-          ls -la client/out || true
 
+      - name: List output
+        run: |
+          ls -la dist
+          ls -la dist/public
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: client/dist
+          path: dist/public
 
   deploy:
     environment:
@@ -54,4 +48,3 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
-
